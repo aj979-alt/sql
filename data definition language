@@ -78,10 +78,16 @@ drop table players;
 drop database wc;
 
 #alter
-create table teams (sno int );
+create table teams (sno int 
+
+#add one column
 alter table teams add name varchar(10);
+
+#add multiple column
 alter table teams add (firstname varchar(10),lastname varchar(10));
 desc teams;
+
+#modify the datatype
 alter table teams modify column name varchar(100);
 insert into teams values(1,"rohith gurunath sharma","rohit","sharma");
 select * from teams;
