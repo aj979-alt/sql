@@ -1,0 +1,65 @@
+use tema;
+create table ipl( ranking int,name varchar(10),team varchar(10),role varchar(10));
+insert into ipl values(1,"rohit","mumbai","batter");
+insert into ipl values(2,"virat","bangalore","batter");
+insert into ipl values(3,"dhoni","chennai","batter");
+insert into ipl values(4,"bumhra","mumbai","bowler");
+insert into ipl values(5,"hardik","gujarat","all");
+insert into ipl values(6,"surya","mumbai","batter");
+insert into ipl values(7,"rabada","gujarat","bowler");
+select * from ipl;
+
+#update all entries
+update ipl set role="batter";
+set sql_safe_updates=0;
+
+# all + if
+update ipl set role = if (team ="chennai","bowler","all");
+
+#many entries
+update ipl set team ="punjab" where ranking in (1,5,7);
+
+#single entries
+update ipl set team="mumbai" where name ="rohit";
+
+#based on many conditions;
+alter table ipl add column score int;
+update  ipl set score= case
+when role ="all" then 1111
+when role="batter" then 11233
+when role="bowler" then 12
+else "none"
+end;
+
+#based on alphabet
+update ipl set role = "batter " where name like "r%";
+
+#between 
+update ipl set team="rajastan" where ranking between 4 and 7;
+
+#and 
+update ipl set role ="no one" where team="rajastan" and score=1111;
+
+#or
+update ipl set role ="no one" where team="rajastan" or score=12;
+
+#inbuilt
+update ipl set team= substring(team,1,3);
+
+#concat
+alter table ipl add column fname varchar(20);
+update ipl set fname=concat(name,"sharma");
+
+#replace
+update ipl set role= replace(role,"all","batter");
+
+#date_add
+alter table ipl add column dob date;
+update ipl set dob=curdate();
+select * from ipl;
+alter table ipl add column jd date;
+update ipl set jd=date_add(dob,interval 4 day);
+
+#ifnull
+update ipl set role = null where role="no one";
+update ipl set role =ifnull(role,"batter");
